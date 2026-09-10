@@ -15,10 +15,15 @@
       <aside class="panel">
         <div class="panel-section">
           <span class="label">TEMA</span>
-          <label class="theme-switch">
-            <input type="checkbox" id="theme-toggle" aria-label="Cambiar entre modo oscuro y modo claro" />
-            <span class="theme-switch-slider"></span>
-          </label>
+          <div class="theme-control">
+            <label class="theme-switch">
+              <input type="checkbox" id="theme-toggle" aria-label="Cambiar entre modo oscuro y modo claro" />
+              <span class="theme-switch-slider">
+                <span class="theme-switch-icon" id="theme-switch-icon" aria-hidden="true">🌙</span>
+              </span>
+            </label>
+            <span class="theme-switch-label" id="theme-switch-label">Cambiar a claro</span>
+          </div>
         </div>
 
         <div class="panel-section">

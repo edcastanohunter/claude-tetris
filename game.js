@@ -40,6 +40,8 @@ const overlayTitle = document.getElementById('overlay-title');
 const overlayScore = document.getElementById('overlay-score');
 const restartBtn = document.getElementById('restart-btn');
 const themeToggle = document.getElementById('theme-toggle');
+const themeIcon = document.getElementById('theme-switch-icon');
+const themeLabel = document.getElementById('theme-switch-label');
 
 const THEME_STORAGE_KEY = 'tetris-theme';
 
@@ -221,9 +223,17 @@ function drawNext() {
       drawBlock(nextCtx, offX + c, offY + r, shape[r][c], NB);
 }
 
-function applyTheme(theme) {
+function applyTheme(theme, animate) {
   document.documentElement.dataset.theme = theme;
   themeToggle.checked = theme === 'light';
+  themeIcon.textContent = theme === 'light' ? '☀️' : '🌙';
+  themeLabel.textContent = theme === 'light' ? 'Cambiar a oscuro' : 'Cambiar a claro';
+  if (animate) {
+    themeIcon.classList.remove('theme-switch-icon-spin');
+    // Forzar reflow para reiniciar la animación al alternar rápidamente.
+    void themeIcon.offsetWidth;
+    themeIcon.classList.add('theme-switch-icon-spin');
+  }
   if (board) draw();
 }
 
@@ -318,7 +328,7 @@ restartBtn.addEventListener('click', init);
 themeToggle.addEventListener('change', () => {
   const theme = themeToggle.checked ? 'light' : 'dark';
   localStorage.setItem(THEME_STORAGE_KEY, theme);
-  applyTheme(theme);
+  applyTheme(theme, true);
 });
 
 initTheme();
