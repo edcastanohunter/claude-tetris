@@ -1,119 +1,62 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tetris</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class="wrapper">
-    <h1 class="game-title">TETRIS</h1>
-    <div class="game-container">
-      <canvas id="board" width="300" height="600"></canvas>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tetris</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <button id="theme-toggle" class="theme-toggle">
+        <span class="toggle-icon">&#9790;</span>
+        <span class="toggle-label">LIGHT</span>
+      </button>
+      <h1 class="game-title">TETRIS</h1>
+      <div class="game-container">
+        <canvas id="board" width="300" height="600"></canvas>
 
-      <aside class="panel">
-        <div class="panel-section">
-          <span class="label">TEMA</span>
-          <div class="theme-control">
-            <label class="theme-switch">
-              <input type="checkbox" id="theme-toggle" aria-label="Cambiar entre modo oscuro y modo claro" />
-              <span class="theme-switch-slider">
-                <span class="theme-switch-icon" id="theme-switch-icon" aria-hidden="true">🌙</span>
-              </span>
-            </label>
-            <span class="theme-switch-label" id="theme-switch-label">Cambiar a claro</span>
+        <aside class="panel">
+          <div class="panel-section">
+            <span class="label">SCORE</span>
+            <span class="value" id="score">0</span>
           </div>
-        </div>
-
-        <div class="panel-section">
-          <span class="label">SKIN</span>
-          <select id="skin-select" class="skin-select" aria-label="Elegir skin visual">
-            <option value="retro">Retro</option>
-            <option value="neon">Neon</option>
-            <option value="pastel">Pastel</option>
-            <option value="pixel">Pixel art</option>
-          </select>
-        </div>
-
-        <div class="panel-section">
-          <span class="label">SCORE</span>
-          <span class="value" id="score">0</span>
-        </div>
-        <div class="panel-section">
-          <span class="label">LINES</span>
-          <span class="value" id="lines">0</span>
-        </div>
-        <div class="panel-section">
-          <span class="label">LEVEL</span>
-          <span class="value" id="level">1</span>
-        </div>
-
-        <div class="panel-section">
-          <span class="label">NEXT</span>
-          <canvas id="next-canvas" width="120" height="120"></canvas>
-        </div>
-
-        <div class="panel-section controls">
-          <span class="label">CONTROLS</span>
-          <ul>
-            <li><kbd>←</kbd><kbd>→</kbd> mover</li>
-            <li><kbd>↑</kbd> rotar</li>
-            <li><kbd>↓</kbd> bajar</li>
-            <li><kbd>Space</kbd> caída</li>
-            <li><kbd>P</kbd> / <kbd>Esc</kbd> pausa</li>
-          </ul>
-        </div>
-
-        <div class="panel-section highscores">
-          <span class="label">RECORDS</span>
-          <ol id="highscore-list" class="highscore-list"></ol>
-          <div class="highscore-stats">
-            <span>Mejor combo: <strong id="best-combo">0</strong></span>
-            <span>Máx. líneas: <strong id="best-lines">0</strong></span>
+          <div class="panel-section">
+            <span class="label">LINES</span>
+            <span class="value" id="lines">0</span>
           </div>
-          <button id="reset-highscores-btn" class="reset-highscores-btn">Resetear records</button>
+          <div class="panel-section">
+            <span class="label">LEVEL</span>
+            <span class="value" id="level">1</span>
+          </div>
+
+          <div class="panel-section">
+            <span class="label">NEXT</span>
+            <canvas id="next-canvas" width="120" height="120"></canvas>
+          </div>
+
+          <div class="panel-section controls">
+            <span class="label">CONTROLS</span>
+            <ul>
+              <li><kbd>←</kbd><kbd>→</kbd> mover</li>
+              <li><kbd>↑</kbd> rotar</li>
+              <li><kbd>↓</kbd> bajar</li>
+              <li><kbd>Space</kbd> caída</li>
+              <li><kbd>P</kbd> pausa</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+
+      <div id="overlay" class="overlay hidden">
+        <div class="overlay-box">
+          <p id="overlay-title">GAME OVER</p>
+          <p id="overlay-score"></p>
+          <button id="restart-btn">Reiniciar</button>
         </div>
-      </aside>
-    </div>
-
-    <div id="overlay" class="overlay hidden">
-      <div class="overlay-box">
-        <p id="overlay-title">GAME OVER</p>
-        <p id="overlay-score"></p>
-
-        <div id="pause-menu" class="pause-menu" hidden>
-          <button id="resume-btn">Reanudar</button>
-          <button id="pause-restart-btn">Reiniciar</button>
-          <button id="controls-btn">Ver controles</button>
-          <label class="level-select">
-            Nivel inicial
-            <select id="start-level-select"></select>
-          </label>
-        </div>
-
-        <div id="pause-controls" class="pause-controls" hidden>
-          <ul>
-            <li><kbd>←</kbd><kbd>→</kbd> mover</li>
-            <li><kbd>↑</kbd> rotar</li>
-            <li><kbd>↓</kbd> bajar</li>
-            <li><kbd>Space</kbd> caída</li>
-            <li><kbd>P</kbd> / <kbd>Esc</kbd> pausa</li>
-          </ul>
-          <button id="controls-back-btn">Volver</button>
-        </div>
-
-        <div id="highscore-entry" class="highscore-entry" hidden>
-          <p class="highscore-entry-label">¡Nuevo record! Introduce tu nombre:</p>
-          <input id="hs-name-input" class="hs-name-input" maxlength="12" placeholder="Jugador" />
-          <button id="hs-save-btn">Guardar</button>
-        </div>
-
-        <button id="restart-btn">Reiniciar</button>
       </div>
     </div>
-  </div>
 
-  <script src="game.js"></script>
-</body>
+    <script src="game.js"></script>
+  </body>
 </html>
