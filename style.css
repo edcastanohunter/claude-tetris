@@ -418,7 +418,8 @@ kbd {
   color: #7aa2f7;
 }
 
-#restart-btn {
+#restart-btn,
+.highscore-entry button {
   margin-top: 8px;
   background: #7aa2f7;
   color: #0f0f17;
@@ -432,6 +433,90 @@ kbd {
   transition: background 0.15s;
 }
 
-#restart-btn:hover {
-  background: #9bbdff;
+#restart-btn:hover,
+.highscore-entry button:hover {
+  background: var(--restart-hover-bg, #9bbdff);
+}
+
+/* ---- Records / entrada de nombre ---- */
+.highscore-entry {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+  min-width: 200px;
+}
+
+.highscore-entry[hidden] {
+  display: none;
+}
+
+#restart-btn[hidden] {
+  display: none;
+}
+
+.highscore-entry-label {
+  font-size: 13px;
+  color: var(--controls-text);
+}
+
+.hs-name-input {
+  background: var(--kbd-bg);
+  border: 1px solid var(--kbd-border);
+  color: var(--text);
+  border-radius: 4px;
+  padding: 8px 10px;
+  font-size: 14px;
+  font-family: inherit;
+  text-align: center;
+}
+
+.highscore-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.highscore-list li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--controls-text);
+}
+
+.highscore-list .hs-rank {
+  color: var(--label);
+  width: 16px;
+}
+
+.highscore-list .hs-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.highscore-list .hs-score {
+  font-family: "Courier New", Courier, monospace;
+  color: #7aa2f7;
+}
+
+.highscore-list .hs-current {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.highscore-list .hs-empty {
+  color: var(--label);
+}
+
+.highscore-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 11px;
+  color: var(--controls-text);
+  margin-top: 4px;
 }
