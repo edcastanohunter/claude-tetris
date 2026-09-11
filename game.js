@@ -285,6 +285,16 @@ function merge() {
         board[current.y + r][current.x + c] = current.shape[r][c];
 }
 
+// Velocidad de caída (ms) para un nivel dado.
+function speedForLevel(lvl) {
+  return Math.max(100, 1000 - (lvl - 1) * 90);
+}
+
+// Nivel correspondiente a un total de líneas, respetando el nivel inicial elegido.
+function levelForLines(totalLines) {
+  return startLevel + Math.floor(totalLines / 10);
+}
+
 function clearLines() {
   let cleared = 0;
   for (let r = ROWS - 1; r >= 0; r--) {
@@ -298,8 +308,8 @@ function clearLines() {
   if (cleared) {
     lines += cleared;
     addScore((LINE_SCORES[cleared] || 0) * level);
-    level = Math.floor(lines / 10) + 1;
-    dropInterval = Math.max(100, 1000 - (level - 1) * 90);
+    level = levelForLines(lines);
+    dropInterval = speedForLevel(level);
     if (cleared === 4) pendingQueue.push(REWARD_TYPE); // Tetris -> próxima pieza es 1x1
     linesSincePowerup += cleared;
     if (linesSincePowerup >= POWERUP_LINE_INTERVAL) {
@@ -814,6 +824,7 @@ function showPauseMenu() {
   overlayScore.textContent = "";
   pauseMenu.hidden = false;
   overlay.classList.remove("hidden");
+  setTimeout(() => resumeBtn.focus(), 0);
 }
 
 function showPauseControls() {
@@ -822,6 +833,7 @@ function showPauseControls() {
   overlayScore.textContent = "";
   pauseControls.hidden = false;
   overlay.classList.remove("hidden");
+  setTimeout(() => controlsBackBtn.focus(), 0);
 }
 
 function endGame() {
@@ -888,7 +900,7 @@ function init() {
   level = startLevel;
   paused = false;
   gameOver = false;
-  dropInterval = Math.max(100, 1000 - (startLevel - 1) * 90);
+  dropInterval = speedForLevel(startLevel);
   dropAccum = 0;
   pendingQueue = [];
   linesSincePowerup = 0;
@@ -903,6 +915,8 @@ function init() {
   next = randomPiece();
   spawn();
   updateHUD();
+  justAddedScore = null;
+  renderHighScores();
   hideOverlayViews();
   overlay.classList.add("hidden");
   cancelAnimationFrame(animId);
@@ -924,15 +938,21 @@ document.addEventListener("keydown", (e) => {
   if (paused || gameOver) return;
   switch (e.code) {
     case "ArrowLeft":
+      e.preventDefault();
       if (!collide(current.shape, current.x - 1, current.y)) current.x--;
       break;
     case "ArrowRight":
+      e.preventDefault();
       if (!collide(current.shape, current.x + 1, current.y)) current.x++;
       break;
     case "ArrowDown":
+      e.preventDefault();
       softDrop();
       break;
     case "ArrowUp":
+      e.preventDefault();
+      tryRotate();
+      break;
     case "KeyX":
       tryRotate();
       break;

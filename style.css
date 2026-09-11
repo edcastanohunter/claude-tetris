@@ -424,6 +424,11 @@ kbd {
   font-size: 13px;
 }
 
+.level-select-hint {
+  font-size: 10px;
+  opacity: 0.7;
+}
+
 .highscore-entry-label {
   font-size: 13px;
   color: var(--overlay-score-color);

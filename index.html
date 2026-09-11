@@ -77,7 +77,7 @@
       </aside>
     </div>
 
-    <div id="overlay" class="overlay hidden">
+    <div id="overlay" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="overlay-title">
       <div class="overlay-box">
         <p id="overlay-title">GAME OVER</p>
         <p id="overlay-score"></p>
@@ -89,6 +89,7 @@
           <label class="level-select">
             Nivel inicial
             <select id="start-level-select"></select>
+            <span class="level-select-hint">se aplica al reiniciar</span>
           </label>
         </div>
 
