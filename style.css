@@ -343,6 +343,7 @@ kbd {
 }
 
 #restart-btn,
+#play-btn,
 .pause-menu button,
 .pause-controls button,
 .highscore-entry button {
@@ -360,6 +361,7 @@ kbd {
 }
 
 #restart-btn:hover,
+#play-btn:hover,
 .pause-menu button:hover,
 .pause-controls button:hover,
 .highscore-entry button:hover {
@@ -369,7 +371,9 @@ kbd {
 /* ---- Menú de pausa ---- */
 .pause-menu,
 .pause-controls,
-.highscore-entry {
+.highscore-entry,
+.start-screen,
+.overlay-highscores {
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -379,8 +383,23 @@ kbd {
 
 .pause-menu[hidden],
 .pause-controls[hidden],
-.highscore-entry[hidden] {
+.highscore-entry[hidden],
+.start-screen[hidden],
+.overlay-highscores[hidden] {
   display: none;
+}
+
+.start-screen .highscore-list,
+.overlay-highscores .highscore-list {
+  max-width: 220px;
+  margin: 4px auto 0;
+  width: 100%;
+}
+
+.start-screen-intro {
+  font-size: 13px;
+  color: var(--controls-color);
+  margin-bottom: 4px;
 }
 
 #restart-btn[hidden] {

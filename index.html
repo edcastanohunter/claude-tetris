@@ -67,10 +67,10 @@
 
         <div class="panel-section highscores">
           <span class="label">RECORDS</span>
-          <ol id="highscore-list" class="highscore-list"></ol>
+          <ol id="highscore-list" class="highscore-list js-highscore-list"></ol>
           <div class="highscore-stats">
-            <span>Mejor combo: <strong id="best-combo">0</strong></span>
-            <span>Máx. líneas: <strong id="best-lines">0</strong></span>
+            <span>Mejor combo: <strong id="best-combo" class="js-best-combo">0</strong></span>
+            <span>Máx. líneas: <strong id="best-lines" class="js-best-lines">0</strong></span>
           </div>
           <button id="reset-highscores-btn" class="reset-highscores-btn">Resetear records</button>
         </div>
@@ -81,6 +81,20 @@
       <div class="overlay-box">
         <p id="overlay-title">GAME OVER</p>
         <p id="overlay-score"></p>
+
+        <div id="start-screen" class="start-screen" hidden>
+          <p class="start-screen-intro">Encaja las piezas, suma líneas y bate el récord.</p>
+          <ol class="highscore-list js-highscore-list"></ol>
+          <div class="highscore-stats">
+            <span>Mejor combo: <strong class="js-best-combo">0</strong></span>
+            <span>Máx. líneas: <strong class="js-best-lines">0</strong></span>
+          </div>
+          <label class="level-select">
+            Nivel inicial
+            <select id="start-level-select-home"></select>
+          </label>
+          <button id="play-btn">JUGAR</button>
+        </div>
 
         <div id="pause-menu" class="pause-menu" hidden>
           <button id="resume-btn">Reanudar</button>
@@ -107,6 +121,15 @@
           <p class="highscore-entry-label">¡Nuevo record! Introduce tu nombre:</p>
           <input id="hs-name-input" class="hs-name-input" maxlength="12" placeholder="Jugador" />
           <button id="hs-save-btn">Guardar</button>
+        </div>
+
+        <div id="overlay-highscores" class="overlay-highscores" hidden>
+          <span class="label">RECORDS</span>
+          <ol class="highscore-list js-highscore-list"></ol>
+          <div class="highscore-stats">
+            <span>Mejor combo: <strong class="js-best-combo">0</strong></span>
+            <span>Máx. líneas: <strong class="js-best-lines">0</strong></span>
+          </div>
         </div>
 
         <button id="restart-btn">Reiniciar</button>
