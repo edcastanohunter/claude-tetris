@@ -95,6 +95,16 @@ function merge() {
         board[current.y + r][current.x + c] = current.shape[r][c];
 }
 
+// Velocidad de caída (ms) para un nivel dado.
+function speedForLevel(lvl) {
+  return Math.max(100, 1000 - (lvl - 1) * 90);
+}
+
+// Nivel correspondiente a un total de líneas, respetando el nivel inicial elegido.
+function levelForLines(totalLines) {
+  return startLevel + Math.floor(totalLines / 10);
+}
+
 function clearLines() {
   let cleared = 0;
   for (let r = ROWS - 1; r >= 0; r--) {
