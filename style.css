@@ -201,6 +201,83 @@ body {
   transition: color 0.3s ease;
 }
 
+/* ---- Selector de skin ---- */
+.skin-select {
+  background: var(--kbd-bg);
+  border: 1px solid var(--kbd-border);
+  color: var(--text);
+  border-radius: 4px;
+  padding: 4px 6px;
+  font-size: 12px;
+  font-family: inherit;
+}
+
+/* ---- Records / high scores ---- */
+.highscore-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 12px;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.highscore-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  color: var(--controls-color);
+}
+
+.highscore-list li .hs-rank {
+  color: var(--panel-label-color);
+  width: 14px;
+  flex-shrink: 0;
+}
+
+.highscore-list li .hs-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.highscore-list li.hs-current {
+  color: var(--value-color);
+  font-weight: 700;
+}
+
+.highscore-list .hs-empty {
+  color: var(--panel-label-color);
+  font-style: italic;
+}
+
+.highscore-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 11px;
+  color: var(--controls-color);
+  margin-top: 4px;
+}
+
+.reset-highscores-btn {
+  margin-top: 6px;
+  background: transparent;
+  border: 1px solid var(--kbd-border);
+  color: var(--controls-color);
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.reset-highscores-btn:hover {
+  background: var(--kbd-bg);
+  color: var(--text);
+}
+
 /* ---- Controles ---- */
 .controls ul {
   list-style: none;
@@ -265,7 +342,10 @@ kbd {
   color: var(--overlay-score-color);
 }
 
-#restart-btn {
+#restart-btn,
+.pause-menu button,
+.pause-controls button,
+.highscore-entry button {
   margin-top: 8px;
   background: var(--restart-bg);
   color: var(--restart-color);
@@ -279,6 +359,83 @@ kbd {
   transition: background 0.15s;
 }
 
-#restart-btn:hover {
+#restart-btn:hover,
+.pause-menu button:hover,
+.pause-controls button:hover,
+.highscore-entry button:hover {
   background: var(--restart-hover-bg);
+}
+
+/* ---- Menú de pausa ---- */
+.pause-menu,
+.pause-controls,
+.highscore-entry {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+  min-width: 200px;
+}
+
+.pause-menu[hidden],
+.pause-controls[hidden],
+.highscore-entry[hidden] {
+  display: none;
+}
+
+#restart-btn[hidden] {
+  display: none;
+}
+
+.pause-controls ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.pause-controls li {
+  font-size: 13px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.level-select {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--controls-color);
+  margin-top: 8px;
+}
+
+.level-select select {
+  background: var(--kbd-bg);
+  border: 1px solid var(--kbd-border);
+  color: var(--text);
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-family: inherit;
+  font-size: 13px;
+}
+
+.highscore-entry-label {
+  font-size: 13px;
+  color: var(--overlay-score-color);
+}
+
+.hs-name-input {
+  background: var(--kbd-bg);
+  border: 1px solid var(--kbd-border);
+  color: var(--text);
+  border-radius: 4px;
+  padding: 8px 10px;
+  font-size: 14px;
+  font-family: inherit;
+  text-align: center;
 }
